@@ -3,9 +3,16 @@ import { connect } from "react-redux";
 import "./Login.css";
 import Loader from "../common/Loader";
 import { login } from "../../actions/auth";
+import InputField from "../common/InputField";
+import { isObjectEmpty } from "../../utils/objectUtils";
 
 function Login({ loading, login }) {
   const [credential, setCredential] = useState({
+    employeeId: "",
+    password: "",
+  });
+
+  const [errors, setErrors] = useState({
     employeeId: "",
     password: "",
   });
@@ -16,36 +23,48 @@ function Login({ loading, login }) {
       ...prev,
       [name]: value,
     }));
+    setErrors((prev) => ({
+      ...prev,
+      [name]: "",
+    }));
   };
 
   const handleLogin = () => {
-    login();
+    const { employeeId, password } = credential;
+    const newErrors = { ...errors };
+    if (!employeeId) {
+      newErrors.employeeId = "Please enter employeeID";
+    }
+    if (!password) {
+      newErrors.password = "Please enter password";
+    }
+    if (isObjectEmpty(newErrors)) {
+      login();
+    } else {
+      setErrors(newErrors);
+    }
   };
 
   return (
     <Loader loading={loading}>
       <div className="login">
         <div className="card">
-          <div className="input-field">
-            <label htmlFor="employeeId">Employee Id:</label>
-            <input
-              type="text"
-              name="employeeId"
-              placeholder="Enter Employee Id"
-              value={credential.employeeId}
-              onChange={handleOnChange}
-            />
-          </div>
-          <div className="input-field">
-            <label htmlFor="password">Password:</label>
-            <input
-              type="password"
-              name="password"
-              placeholder="Enter Password"
-              value={credential.password}
-              onChange={handleOnChange}
-            />
-          </div>
+          <InputField
+            name="employeeId"
+            placeholder="Enter Employee Id"
+            value={credential.employeeId}
+            handleOnChange={handleOnChange}
+            label="Employee Id:"
+            error={errors.employeeId}
+          />
+          <InputField
+            name="password"
+            placeholder="Enter Password"
+            value={credential.password}
+            handleOnChange={handleOnChange}
+            label="Password:"
+            error={errors.password}
+          />
           <button onClick={handleLogin}>Login</button>
         </div>
       </div>

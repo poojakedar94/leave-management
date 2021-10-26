@@ -8,5 +8,5 @@ export const login = (payload) => (dispatch) => {
     dispatch({
       type: LOGIN_SUCCESS,
     });
-  }, 5000);
+  }, 300);
 };
