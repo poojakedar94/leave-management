@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import "./Login.css";
 import Loader from "../common/Loader";
 import { login } from "../../actions/auth";
-import InputField from "../common/InputField";
+import InputField from "../common/form/InputField";
 import { isObjectEmpty } from "../../utils/objectUtils";
 
 function Login({ loading, login }) {

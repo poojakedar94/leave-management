@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import DropDownField from "../common/DropDownField";
+import DropDownField from "../common/form/DropDownField";
 
 function LeaveTypeDropDown({ leaveBalance }) {
   const [options, setOptions] = useState([]);

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import DateField from "../common/DateField";
+import DateField from "../common/form/DateField";
 import "./applyLeave.scss";
 import LeaveTypeDropDown from "./LeaveTypeDropDown";
 
