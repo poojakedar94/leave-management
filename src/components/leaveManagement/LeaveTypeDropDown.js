@@ -12,6 +12,7 @@ function LeaveTypeDropDown({ leaveBalance }) {
     }));
     setOptions(leaveOptions);
   }, [leaveBalance]);
+
   return (
     <div className="leavetype-dropdown">
       <DropDownField options={options} name="leaveType" label="Leave Type" />

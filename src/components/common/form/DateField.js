@@ -1,18 +1,15 @@
 import React from "react";
-import "./dateField.css";
+import formField from "./formField";
 
-function DateField({ name, label, value, handleDate, disabled = false }) {
+function DateField({ name, value, handleDate, disabled = false }) {
   return (
-    <div className="date-field">
-      <label htmlFor={name}>{label}</label>
-      <input
-        type="date"
-        name={name}
-        value={value}
-        onChange={handleDate}
-        disabled={disabled}
-      />
-    </div>
+    <input
+      type="date"
+      name={name}
+      value={value}
+      onChange={handleDate}
+      disabled={disabled}
+    />
   );
 }
-export default DateField;
+export default formField(DateField);

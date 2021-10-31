@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
+import Button from "../common/Button";
 import DateField from "../common/form/DateField";
+import Fileinput from "../common/form/Fileinput";
+import InputField from "../common/form/InputField";
+import TextAreaField from "../common/form/TextAreaField";
 import "./applyLeave.scss";
 import LeaveTypeDropDown from "./LeaveTypeDropDown";
 
@@ -10,12 +14,17 @@ function ApplyLeave({ leaveBalance }) {
     fromDate: "",
     toDate: "",
   });
+  const [reason, setReason] = useState("");
 
   useEffect(() => {
     if (date.fromDate && date.toDate) {
       getLeaveCount();
     }
   }, [date]);
+
+  const handleReasonChange = (e) => {
+    setReason(e.target.value);
+  };
 
   const handleDate = (e) => {
     const { name, value } = e.target;
@@ -25,7 +34,7 @@ function ApplyLeave({ leaveBalance }) {
     }));
   };
 
-  const handleButton = () => {
+  const onApply = () => {
     console.log(date);
   };
 
@@ -40,28 +49,38 @@ function ApplyLeave({ leaveBalance }) {
 
   return (
     <div className="leave-container">
-      <div className="leave-dashboard">
-        <LeaveTypeDropDown leaveBalance={leaveBalance} />
-        <div className="date-selector">
-          <DateField
-            label="From date"
-            name="fromDate"
-            value={date.fromDate}
-            handleDate={handleDate}
-          />
-          <DateField
-            label="To date"
-            name="toDate"
-            value={date.toDate}
-            handleDate={handleDate}
-            disabled={!date.fromDate}
-          />
-          <div>Leave Count {leaveCount}</div>
-        </div>
-        <button className="apply-btn" onClick={handleButton}>
-          Apply
-        </button>
+      <LeaveTypeDropDown leaveBalance={leaveBalance} />
+      <div className="date-selector">
+        <DateField
+          label="From date"
+          name="fromDate"
+          value={date.fromDate}
+          handleDate={handleDate}
+        />
+        <DateField
+          label="To date"
+          name="toDate"
+          value={date.toDate}
+          handleDate={handleDate}
+          disabled={!date.fromDate}
+        />
+        <InputField
+          label="Leave count"
+          value={leaveCount}
+          name="leaveCount"
+          disabled={true}
+          classes="leave-count"
+        />
       </div>
+      <TextAreaField
+        label="Reason:"
+        name="reason"
+        placeholder="Please add leave reason"
+        onChange={handleReasonChange}
+        value={reason}
+      />
+      <Fileinput />
+      <Button label="Apply" onClick={onApply} />
     </div>
   );
 }

@@ -6,9 +6,9 @@ function InputField({
   handleOnChange,
   value,
   name,
-  label,
   placeholder,
-  error,
+  disabled = false,
+  classes = "",
 }) {
   return (
     <input
@@ -17,6 +17,8 @@ function InputField({
       placeholder={placeholder}
       value={value}
       onChange={handleOnChange}
+      disabled={disabled}
+      className={classes}
     />
   );
 }
